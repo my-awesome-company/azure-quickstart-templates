@@ -1,3 +1,8 @@
+### Info
+- Resource type: Azure Web App 
+- NodeJS version: 12.x
+- OS: Linux
+
 ### Business justification
 Does this require approval?
 - Yes / No
