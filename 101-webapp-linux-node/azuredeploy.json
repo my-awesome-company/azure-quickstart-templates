@@ -18,13 +18,13 @@
         }
     },
     "variables":{
-        "alwaysOn": false,
-        "sku": "Free",
-        "skuCode": "F1",
-        "workerSize": "0",
-        "workerSizeId": "0",
+        "alwaysOn": true,
+        "sku": "PremiumV2",
+        "skuCode": "P1v2",
+        "workerSize": "3",
+        "workerSizeId": "3",
         "numberOfWorkers": "1",
-        "linuxFxVersion": "NODE|lts",
+        "linuxFxVersion": "NODE|12-lts",
         "hostingPlanName": "[concat('hpn-', resourceGroup().name)]"
     },
     "resources": [
