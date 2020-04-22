@@ -18,5 +18,5 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - uses: whiteducksoftware/azure-arm-action-js@v1
         with:
-          resourceGroupName: github-actions-rg
+          resourceGroupName: pierluigi-demos
           templateLocation: ./101-webapp-linux-node/azuredeploy.json
