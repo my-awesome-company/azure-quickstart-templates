@@ -39,16 +39,15 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ job.status }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-          env_url: '${{ steps.deploy.outputs.webAppName }}.azurewebsites.net'   
-        
-#       - uses: actions/github-script@0.3.0
-#         if: success()
-#         with:
-#           github-token: ${{github.token}}
-#           script: |
-#             const body = `
+          env_url: '${{ steps.deploy.outputs.webAppName }}.azurewebsites.net'  
+      - uses: actions/github-script@0.3.0
+        if: success()
+        with:
+          github-token: ${{github.token}}
+          script: |
+            const body = `
             
-#             *Deployment Status*: ✅ Good
-            
-#             `;
-#             github.issues.createComment({...context.issue, body })
+            *Deployment Status*: ✅ Good
+            *URL*: https://${steps.deploy.outputs.webAppName}.azurewebsites.net
+            `;
+            github.issues.createComment({...context.issue, body })
