@@ -13,21 +13,42 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
+      - name: Start deployment
+        uses: bobheadxi/deployments@master
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: staging
+
       - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - uses: whiteducksoftware/azure-arm-action-js@v1
+        name: Deploy Azure template
         with:
           resourceGroupName: pierluigi-demos
           templateLocation: ./101-webapp-linux-node/azuredeploy.json
-      - uses: actions/github-script@0.3.0
-        if: success()
+      - run: echo ${{ steps.deploy.outputs.webAppName }}
+      - run: echo ${{ steps.deploy.outputs.location }}
+      - name: update deployment status
+        uses: bobheadxi/deployments@master
+        if: always()
         with:
-          github-token: ${{github.token}}
-          script: |
-            const body = `
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env_url: '${{ steps.deploy.outputs.webAppName }}.azurewebsites.net'   
+        
+#       - uses: actions/github-script@0.3.0
+#         if: success()
+#         with:
+#           github-token: ${{github.token}}
+#           script: |
+#             const body = `
             
-            *Deployment Status*: ✅ Good
+#             *Deployment Status*: ✅ Good
             
-            `;
-            github.issues.createComment({...context.issue, body })
+#             `;
+#             github.issues.createComment({...context.issue, body })
