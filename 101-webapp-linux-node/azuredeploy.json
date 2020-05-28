@@ -64,5 +64,15 @@
                 "reserved": true
             }
         }
-    ]
+    ],
+     "outputs": {
+        "location": {
+            "type": "string",
+            "value": "[parameters('location')]"
+        },
+        "webAppName": {
+            "type": "string",
+            "value": "[parameters('webAppName')]"
+        }
+    }
 }
