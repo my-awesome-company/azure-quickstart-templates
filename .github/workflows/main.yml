@@ -38,7 +38,7 @@ jobs:
         with:
           step: finish
           token: ${{ secrets.GITHUB_TOKEN }}
-          status: ${{ context.job.status }}
+          status: ${{ job.status }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
           env_url: 'https://${{ steps.deploy.outputs.webAppName }}.azurewebsites.net'  
       - uses: actions/github-script@0.3.0
