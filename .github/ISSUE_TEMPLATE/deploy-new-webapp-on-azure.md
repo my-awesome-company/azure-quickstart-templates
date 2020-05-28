@@ -1,8 +1,8 @@
 ---
 name: Deploy new WebApp on Azure
 about: For all requests to provision a NodeJS WebApp environment on Azure
-title: ''
-labels: ''
+title: 'Requesting deployment'
+labels: 'deployment,azure'
 assignees: ''
 
 ---
