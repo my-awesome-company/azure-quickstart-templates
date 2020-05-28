@@ -47,12 +47,13 @@ jobs:
         with:
           github-token: ${{github.token}}
           script: |
-            const body = `## Deployment Completed
-The requested deployment has completed.
+            const body = `
+            ## Deployment Completed
+            The requested deployment has completed.
 
-*Deployment Status*: ${job.status}
-*Resource URL*: https://${steps.deploy.outputs.webAppName}.azurewebsites.net
+            *Deployment Status*: ${job.status}
+            *Resource URL*: https://${steps.deploy.outputs.webAppName}.azurewebsites.net
 
-[List Deployments](../deployments)
-`;
+            [List Deployments](../deployments)
+            `;
             github.issues.createComment({...context.issue, body })
