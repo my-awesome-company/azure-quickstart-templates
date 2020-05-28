@@ -42,7 +42,7 @@ jobs:
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
           env_url: 'https://${{ steps.deploy.outputs.webAppName }}.azurewebsites.net'  
       - uses: actions/github-script@0.3.0
-        if: success()
+        if: always()
         with:
           github-token: ${{github.token}}
           script: |
@@ -50,8 +50,8 @@ jobs:
             ## Deployment Completed
             The requested deployment has completed.
 
-            *Deployment Status*: ${job.status}
-            *Resource URL*: https://${steps.deploy.outputs.webAppName}.azurewebsites.net
+            - Deployment Status: *${job.status}*
+            - Resource URL: https://${steps.deploy.outputs.webAppName}.azurewebsites.net
 
             [List Deployments](../deployments)
             `;
