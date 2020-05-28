@@ -53,7 +53,7 @@ jobs:
             ## Deployment Completed
             The requested deployment has completed.
 
-            - Deployment Status: *${process.env.JOB_STATUS}*
+            - Deployment Status: *${process.env.JOB_STATUS == 'success' ? '✅ Done' : `⚠️ ${process.env.JOB_STATUS}`}*
             - Resource URL: https://${process.env.WEBAPP_NAME}.azurewebsites.net
 
             [List Deployments](../deployments)
