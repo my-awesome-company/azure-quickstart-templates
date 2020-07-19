@@ -16,11 +16,25 @@ jobs:
           github-token: ${{github.token}}
           script: |
             const column_id = context.payload.project_card.column_id;
-            console.log(column_id);
-
             let { data: { name } } = await github.projects.getColumn({
               column_id,
             });
 
-            console.log(name);
+            const { COL_TODO, COL_INPG, COL_DONE} = process.env;
+            
+            console.log(COL_TODO, COL_INPG, COL_DONE);
+
+            switch (name) {
+              case COL_TODO:
+                console.log("New project requested");
+                break;
+              case COL_INPG:
+                console.log("Start new project");
+                break;
+              case COL_DONE:
+                console.log("Close project")
+              default:
+                console.log(`Column ${name} not present. Skipping...`); 
+                break;
+            }            
     
