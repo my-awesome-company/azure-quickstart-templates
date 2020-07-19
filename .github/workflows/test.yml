@@ -15,22 +15,15 @@ jobs:
         with:
           github-token: ${{github.token}}
           script: |
-            const {column_id, id: card_id } = context.payload.project_card;
-
+            const {column_id } = context.payload.project_card;
+            console.log(context.payload);
             
             let { data: { name } } = await github.projects.getColumn({
               column_id,
             });
 
-            let { data: card_data } = await github.projects.getCard({
-                card_id,
-            });
             
-            console.log(card_data);
-
             const { COL_TODO, COL_INPG, COL_DONE} = process.env;
-            
-
             switch (name) {
               case COL_TODO:
                 console.log("New project requested");
