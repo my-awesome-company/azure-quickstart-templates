@@ -55,16 +55,23 @@ jobs:
                 
                 if (res.status == 201) {
 
-                  const body = `
+                  const comment_body = `
                   ## Created new project from ${template_owner}/${template_repo}
                   The repository [${res.data.full_name}](${res.data.html_url}) has been created and is now available.
 
                   ## Next steps
                   - [${res.data.html_url}/settings/access](Invite users)
                   - ...
-
+                  
                   `;
-                  github.issues.createComment({...context.issue, body })
+
+
+                  github.issues.createComment({
+                    issue_number: number, 
+                    owner: user.login, 
+                    repo: context.repo.repo,
+                    body: comment_body
+                  })
 
                 } else {
                   core.setFailed(`Could not create repo ${name} for ${user.login}`);
