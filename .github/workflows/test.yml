@@ -12,15 +12,19 @@ jobs:
     runs-on: [laptop]
     steps:
       - uses: actions/github-script@0.3.0
+        if: contains(github.event.project_card.content_url, 'issues/')
         with:
           github-token: ${{github.token}}
           script: |
-            const {column_id } = context.payload.project_card;
-            console.log(context.payload);
+            const {column_id, content_url } = context.payload.project_card;
+            console.log(content_url);
             
             let { data: { name } } = await github.projects.getColumn({
               column_id,
             });
+
+            let res = await github.request(`GET ${content_url}`);
+            console.log(res);
 
             
             const { COL_TODO, COL_INPG, COL_DONE} = process.env;
