@@ -2,6 +2,9 @@ name: TEST
 
 on:
   project_card
+
+# TODO check secrets.ACTION_PAT
+
 env:
   COL_TODO: 'To do'
   COL_INPG: 'In progress'
@@ -36,13 +39,12 @@ jobs:
                 break;
               case COL_INPG:
                 console.log("Start new project");
-                // TODO create repository from the specified template
-
+                // TODO create repository from the specified template found in the issue
                 const template_owner = 'pierluigi';
                 const template_repo = "simple-nodejs-app-template";
+                // Add random seed to repo name
                 const name =  `${template_repo}-${Math.random().toString(36).substring(7)}`;
                 console.log(`Attempting to create ${name} for ${user.login}`);
-
 
                 let res = await github.repos.createUsingTemplate({
                   template_owner,
@@ -51,7 +53,22 @@ jobs:
                   owner: user.login
                 });
                 
-                console.log(res);
+                if (res.status == 201) {
+
+                  const body = `
+                  ## Created new project from ${template_owner}/${template_repo}
+                  The repository [${res.data.full_name}](${res.data.html_url}) has been created and is now available.
+
+                  ## Next steps
+                  - [${res.data.html_url}/settings/access](Invite users)
+                  - ...
+
+                  `;
+                  github.issues.createComment({...context.issue, body })
+
+                } else {
+                  core.setFailed(`Could not create repo ${name} for ${user.login}`);
+                }
                 
                 break;
               case COL_DONE:
