@@ -18,9 +18,9 @@ jobs:
             const column_id = context.payload.project_card.column_id;
             console.log(column_id);
 
-            let column = await github.projects.getColumn({
+            let { name } = await github.projects.getColumn({
               column_id,
             });
 
-            console.log(column);
+            console.log(name);
     
