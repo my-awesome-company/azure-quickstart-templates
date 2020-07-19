@@ -2,14 +2,18 @@ name: TEST
 
 on:
   project_card
-
+env:
+  COL_TODO: 'To do'
+  COL_INPG: 'In progress'
+  COL_DONE: 'Done'
 jobs:
   update-project:
     if: github.event.action == 'moved'
     runs-on: [laptop]
     steps:
-      - name: Store column id
-        env:
-          TO_COLUM: ${{ github.event.project_card.column_id}}          
-        run: echo "$TO_COLUMN"
+      - uses: actions/github-script@0.3.0
+        with:
+          github-token: ${{github.token}}
+          script: |
+            console.log(context)
     
