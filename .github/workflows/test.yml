@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/github-script@0.3.0
         name: 
-        # Ensure the card is an issue
+        # Ensure the card is an "issue" and not a "note"
         if: contains(github.event.project_card.content_url, 'issues/')
         with:
           github-token: ${{secrets.ACTION_PAT}}
@@ -59,20 +59,20 @@ jobs:
                   // core.setOutput('new_repo_id', res.data.id);
 
                   const comment_body = `
-                  ## Created new project from ${template_owner}/${template_repo}
-                  The repository [${res.data.full_name}](${res.data.html_url}) has been created and is now available.
+                ## Created new project from ${template_owner}/${template_repo}
+                The repository [${res.data.html_url}](${res.data.full_name}) has been created and is now available.
 
 
-                  ## Next steps
-                  - [${res.data.html_url}/settings/access](Invite users)
-                  - ...
-                  
-                  ----
-                  REPO_METADATA
+                ## Next steps
+                - [Invite users](${res.data.html_url}/settings/access)
+                - [Rename repo](${res.data.html_url}/settings)
+                
+                ----
+                REPO_METADATA
 
-                      NEW_REPO_ID=${res.data.id}
-                      NEW_REPO_NAME=${res.data.full_name}
-                  `;
+                        NEW_REPO_ID=${res.data.id}
+                        NEW_REPO_NAME=${res.data.full_name}
+                `;
 
 
                   github.issues.createComment({
@@ -83,6 +83,7 @@ jobs:
                   })
 
                 } else {
+                  throw(`Could not create repo ${name} for ${user.login}`);
                   // core.setFailed(`Could not create repo ${name} for ${user.login}`);
                 }
                 
