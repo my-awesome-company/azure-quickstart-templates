@@ -38,14 +38,15 @@ jobs:
                 console.log("Start new project");
                 // TODO create repository from the specified template
 
-                const template_owner = "pierluigi";
+                const template_owner = 'pierluigi';
                 const template_repo = "simple-nodejs-app-template";
                 const name =  `${template_repo}-${Math.random().toString(36).substring(7)}`;
-                
+
                 let res = await github.repos.createUsingTemplate({
                   template_owner,
                   template_repo,
                   name,
+                  owner: user.login
                 });
                 break;
               case COL_DONE:
