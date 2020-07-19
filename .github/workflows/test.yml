@@ -58,24 +58,22 @@ jobs:
                 
                 if (res.status == 201) {
                   // core.setOutput('new_repo_id', res.data.id);
-
+                  console.log("Done.");
+                  console.log("Creating issue");
                   const comment_body = `
-              ## Created new project 
-              
-              The repository [${res.data.full_na,e}](${res.data.html_url}) has been created (using the template ${template_owner}/${template_repo}) and is now available.
+                  ## Created new project 
+                  
+                  The repository [${res.data.full_na,e}](${res.data.html_url}) has been created (using the template ${template_owner}/${template_repo}) and is now available.
 
-              ## Next steps
-              - [Invite users](${res.data.html_url}/settings/access)
-              - [Rename repo](${res.data.html_url}/settings)
-              
-              ----
+                  ## Next steps
+                  - [Invite users](${res.data.html_url}/settings/access)
+                  - [Rename repo](${res.data.html_url}/settings)
+                  
+                  ----
 
-                  NEW_REPO_ID=${res.data.id}
-                  NEW_REPO_NAME=${res.data.full_name}
-
+                      NEW_REPO_ID=${res.data.id}
+                      NEW_REPO_NAME=${res.data.full_name}
                   `;
-
-                  console.log(body);
 
                   const comment_res = github.issues.createComment({
                     issue_number: number, 
@@ -88,7 +86,7 @@ jobs:
 
                 } else {
                   console.error(`Could not create repo ${name} for ${user.login}`);
-                  core.setFailed(`Could not create repo ${name} for ${user.login}`);
+                  // core.setFailed(`Could not create repo ${name} for ${user.login}`);
                 }
                 
                 break;
