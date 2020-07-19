@@ -41,13 +41,18 @@ jobs:
                 const template_owner = 'pierluigi';
                 const template_repo = "simple-nodejs-app-template";
                 const name =  `${template_repo}-${Math.random().toString(36).substring(7)}`;
-
+                console.log(`Attempting to create ${name}`);
+                try {
                 let res = await github.repos.createUsingTemplate({
                   template_owner,
                   template_repo,
                   name,
                   owner: user.login
                 });
+                } 
+                catch (e) {
+                  console.error(e);
+                }
                 break;
               case COL_DONE:
                 console.log("Close project");
