@@ -55,7 +55,7 @@ jobs:
                 });
                 
                 if (res.status == 201) {
-                  console.log(core);
+                  // console.log(core);
                   // core.setOutput('new_repo_id', res.data.id);
 
                   const comment_body = `
