@@ -15,5 +15,12 @@ jobs:
         with:
           github-token: ${{github.token}}
           script: |
-            console.log(context)
+            const column_id = context.payload.project_card.column_id;
+            console.log(column_id);
+            
+            let column = await octokit.projects.getColumn({
+              column_id,
+            });
+
+            console.log(column);
     
