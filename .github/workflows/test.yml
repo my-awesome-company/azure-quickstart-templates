@@ -31,7 +31,7 @@ jobs:
                 console.log("Start new project");
                 break;
               case COL_DONE:
-                console.log("Close project")
+                console.log("Close project");
                 break;
               default:
                 console.log(`Column ${name} not present. Skipping...`); 
