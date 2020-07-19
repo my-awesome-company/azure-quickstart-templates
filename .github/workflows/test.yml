@@ -23,8 +23,8 @@ jobs:
               column_id,
             });
 
-            let res = await github.request(`GET ${content_url}`);
-            console.log(res);
+            let { data : { labels, body, state, title, number }} = await github.request(`GET ${content_url}`);
+            console.log(labels, title, body);
 
             
             const { COL_TODO, COL_INPG, COL_DONE} = process.env;
