@@ -58,20 +58,20 @@ jobs:
                   // console.log(core);
                   // core.setOutput('new_repo_id', res.data.id);
 
-                  const comment_body = `
-                ## Created new project from ${template_owner}/${template_repo}
-                The repository [${res.data.html_url}](${res.data.full_name}) has been created and is now available.
+                const comment_body = `
+              ## Created new project from ${template_owner}/${template_repo}
+              The repository [${res.data.html_url}](${res.data.full_name}) has been created and is now available.
 
 
-                ## Next steps
-                - [Invite users](${res.data.html_url}/settings/access)
-                - [Rename repo](${res.data.html_url}/settings)
-                
-                ----
-                REPO_METADATA
+              ## Next steps
+              - [Invite users](${res.data.html_url}/settings/access)
+              - [Rename repo](${res.data.html_url}/settings)
+              
+              ----
+              REPO_METADATA
 
-                        NEW_REPO_ID=${res.data.id}
-                        NEW_REPO_NAME=${res.data.full_name}
+                      NEW_REPO_ID=${res.data.id}
+                      NEW_REPO_NAME=${res.data.full_name}
                 `;
 
 
