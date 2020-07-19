@@ -25,7 +25,7 @@ jobs:
             });
 
             let { data : { labels, body, state, title, number, user }} = await github.request(`GET ${content_url}`);
-            console.log(user.login, labels, title, body);
+            // console.log(user.login, labels, title, body);
 
             // TODO Check for a specific label
             
@@ -37,10 +37,11 @@ jobs:
               case COL_INPG:
                 console.log("Start new project");
                 // TODO create repository from the specified template
-                
+
                 const template_owner = "pierluigi";
                 const template_repo = "simple-nodejs-app-template";
                 const name =  `${template_repo}-${Math.random().toString(36).substring(7)}`;
+                
                 let res = await github.repos.createUsingTemplate({
                   template_owner,
                   template_repo,
