@@ -55,7 +55,7 @@ jobs:
                 });
                 
                 if (res.status == 201) {
-                  core.setOutput('new_repo_id', res.data.id);
+                  // core.setOutput('new_repo_id', res.data.id);
 
                   const comment_body = `
                   ## Created new project from ${template_owner}/${template_repo}
@@ -82,7 +82,7 @@ jobs:
                   })
 
                 } else {
-                  core.setFailed(`Could not create repo ${name} for ${user.login}`);
+                  // core.setFailed(`Could not create repo ${name} for ${user.login}`);
                 }
                 
                 break;
