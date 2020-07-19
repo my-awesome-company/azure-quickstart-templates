@@ -17,8 +17,8 @@ jobs:
           script: |
             const column_id = context.payload.project_card.column_id;
             console.log(column_id);
-            
-            let column = await octokit.projects.getColumn({
+
+            let column = await github.projects.getColumn({
               column_id,
             });
 
