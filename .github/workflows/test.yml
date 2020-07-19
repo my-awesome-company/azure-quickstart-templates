@@ -55,13 +55,15 @@ jobs:
                   owner: user.login
                 });
                 
+                console.log("RES", res);
+                
                 if (res.status == 201) {
-                  // console.log(core);
                   // core.setOutput('new_repo_id', res.data.id);
 
                 const comment_body = `
-              ## Created new project from ${template_owner}/${template_repo}
-              The repository [${res.data.full_na,e}](${res.data.html_url}) has been created and is now available.
+              ## Created new project 
+              
+              The repository [${res.data.full_na,e}](${res.data.html_url}) has been created (using the template ${template_owner}/${template_repo}) and is now available.
 
               ## Next steps
               - [Invite users](${res.data.html_url}/settings/access)
@@ -83,8 +85,8 @@ jobs:
                   })
 
                 } else {
-                  throw(`Could not create repo ${name} for ${user.login}`);
-                  // core.setFailed(`Could not create repo ${name} for ${user.login}`);
+                  console.error(`Could not create repo ${name} for ${user.login}`);
+                  core.setFailed(`Could not create repo ${name} for ${user.login}`);
                 }
                 
                 break;
