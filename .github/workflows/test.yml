@@ -16,6 +16,7 @@ jobs:
           github-token: ${{github.token}}
           script: |
             const column_id = context.payload.project_card.column_id;
+            console.log(context.payload);
             let { data: { name } } = await github.projects.getColumn({
               column_id,
             });
