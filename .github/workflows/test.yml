@@ -21,7 +21,6 @@ jobs:
             });
 
             const { COL_TODO, COL_INPG, COL_DONE} = process.env;
-            
             console.log(COL_TODO, COL_INPG, COL_DONE);
 
             switch (name) {
@@ -33,6 +32,7 @@ jobs:
                 break;
               case COL_DONE:
                 console.log("Close project")
+                break;
               default:
                 console.log(`Column ${name} not present. Skipping...`); 
                 break;
