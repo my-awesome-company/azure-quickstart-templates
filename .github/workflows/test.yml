@@ -10,22 +10,24 @@ jobs:
   update-project:
     if: github.event.action == 'moved'
     runs-on: [laptop]
+  
     steps:
       - uses: actions/github-script@0.3.0
+        # Ensure the card is an issue
         if: contains(github.event.project_card.content_url, 'issues/')
         with:
           github-token: ${{github.token}}
           script: |
             const {column_id, content_url } = context.payload.project_card;
-            console.log(content_url);
             
             let { data: { name } } = await github.projects.getColumn({
               column_id,
             });
 
-            let { data : { labels, body, state, title, number }} = await github.request(`GET ${content_url}`);
-            console.log(labels, title, body);
+            let { data : { labels, body, state, title, number, user }} = await github.request(`GET ${content_url}`);
+            console.log(user.login, labels, title, body);
 
+            // TODO Check for a specific label
             
             const { COL_TODO, COL_INPG, COL_DONE} = process.env;
             switch (name) {
@@ -34,6 +36,16 @@ jobs:
                 break;
               case COL_INPG:
                 console.log("Start new project");
+                // TODO create repository from the specified template
+                
+                const template_owner = "pierluigi";
+                const template_repo = "simple-nodejs-app-template";
+                const name =  `${template_repo}-${Math.random().toString(36).substring(7)}`;
+                let res = await github.repos.createUsingTemplate({
+                  template_owner,
+                  template_repo,
+                  name,
+                });
                 break;
               case COL_DONE:
                 console.log("Close project");
