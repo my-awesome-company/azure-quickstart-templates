@@ -24,7 +24,7 @@ jobs:
           script: |
             const {column_id, content_url } = context.payload.project_card;
             // TODO Remove
-            core.setOutput("column_id", column_id)
+            // core.setOutput("column_id", column_id);
             
             let { data: { name } } = await github.projects.getColumn({
               column_id,
